@@ -1,0 +1,195 @@
+/* ----- GLOBAL STYLES ----- */
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    /* Colors */
+    --primary-color: #349eff;
+    --background-color: #27292c;
+    /* --background-color: #2a2f37; */
+    --text-color: #c3cde5;
+    /* --error-color:#ff7f58; */
+    --error-color: #e64d38;
+    /* --form-color: #373C47; */
+    --form-color: #323843;
+    --form-active-color: #373c47;
+    --form-text-color: #838a9c;
+    --form-border-color: rgba(52, 158, 255, 0.7);
+    --form-box-shadow-color: rgba(52, 158, 255, 0.08);
+    --light-color: #d9d9d9;
+    --dark-color: #1e2022;
+    --toastify-color-progress-light: var(--primary-color) !important;
+    --toastify-color-progress-dark: var(--primary-color) !important;
+
+    /* Dimensions */
+    --large-border-radius: 12px;
+    --small-border-radius: 4px;
+    --max-width: 1160px;
+    --view-width: 95vw;
+
+    /* Fonts */
+    --font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body.sidebar-visible {
+    overflow-y: hidden;
+}
+
+section {
+    width: var(--view-width);
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+input[type='text'],
+input[type='password'],
+textarea,
+.quill {
+    height: 51px;
+    padding-left: 33px;
+    background-color: var(--form-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--large-border-radius);
+}
+
+textarea {
+    height: auto;
+    padding: 33px 33px;
+    resize: none;
+}
+
+.quill {
+    height: auto;
+    padding: 15px 15px;
+    resize: none;
+}
+
+.quill * {
+    color: var(--primary-color) !important;
+    stroke: var(--primary-color) !important;
+    font-family: var(--font-family) !important;
+}
+
+.quill .ql-editor * {
+    color: var(--text-color) !important;
+}
+
+.quill .ql-editor::before {
+    color: var(--form-text-color) !important;
+}
+
+.ql-toolbar.ql-snow,
+.ql-container.ql-snow {
+    border: none !important;
+}
+
+input[type='text']::placeholder,
+input[type='password']::placeholder textarea::placeholder {
+    color: var(--form-text-color);
+}
+
+input[type='text']:focus,
+input[type='password']:focus,
+textarea:focus,
+.focus {
+    border-radius: var(--large-border-radius);
+    background-color: var(--form-active-color);
+    outline: 1.5px solid var(--form-border-color);
+    box-shadow: 0 0 0 5.5px var(--form-box-shadow-color);
+}
+
+h2 {
+    font-size: 37px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+h2::before {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+h4 {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--primary-color);
+    text-transform: uppercase;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    border-radius: 26px;
+}
+
+.btn a,
+button.btn {
+    color: white;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.btn a {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+.ghost-btn {
+    background-color: var(--background-color);
+    border: solid 2px var(--primary-color);
+}
+
+.ghost-btn a,
+button.ghost-btn {
+    color: var(--primary-color);
+}
+
+/* --- DESKTOP --- */
+
+@media (min-width: 1024px) {
+    h2 {
+        font-size: 43px;
+    }
+}
