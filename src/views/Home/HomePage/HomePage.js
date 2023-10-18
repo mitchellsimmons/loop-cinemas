@@ -7,8 +7,8 @@ import {
     MemberSection,
 } from 'views/Home';
 import { SearchSection } from 'components';
-import { useUserContext } from 'context/UserProvider';
-import { useMediaContext } from 'context/MediaProvider';
+import { useUserContext } from '@/context/UserProvider';
+import { useMediaContext } from '@/context/MediaProvider';
 import Wrapper from './HomePage.styles';
 
 const HomePage = () => {

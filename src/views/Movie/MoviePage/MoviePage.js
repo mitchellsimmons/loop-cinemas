@@ -10,8 +10,8 @@ import {
     DetailsSection,
     ReviewsSection,
 } from 'views/Movie';
-import { useMediaContext } from 'context/MediaProvider';
-import { useFetchMovieByTitle } from 'api/movies';
+import { useMediaContext } from '@/context/MediaProvider';
+import { useFetchMovieByTitle } from '@/api/movies';
 import Wrapper from './MoviePage.styles';
 
 const MoviePage = () => {

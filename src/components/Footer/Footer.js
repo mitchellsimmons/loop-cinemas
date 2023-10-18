@@ -4,7 +4,7 @@ import { AiFillInstagram } from 'react-icons/ai';
 import { FaYoutube } from 'react-icons/fa';
 
 import Wrapper from './Footer.styles';
-import { logoImage } from 'assets/images';
+import { logoImage } from '@/assets/images';
 
 const Footer = () => {
     return (

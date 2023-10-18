@@ -1,4 +1,4 @@
-import { getQualifiedResource } from 'api/movies';
+import { getQualifiedResource } from '@/api/movies';
 import Wrapper from './HeroSection.styles';
 
 const HeroSection = ({ title, resource }) => {

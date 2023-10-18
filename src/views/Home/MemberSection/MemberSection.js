@@ -1,7 +1,7 @@
 import Wrapper from './MemberSection.styles';
 import { LinkButton, UserModalContainer } from 'components';
 import { useState } from 'react';
-import { useMediaContext } from 'context/MediaProvider';
+import { useMediaContext } from '@/context/MediaProvider';
 
 const MemberSection = () => {
     const { isDesktop } = useMediaContext();

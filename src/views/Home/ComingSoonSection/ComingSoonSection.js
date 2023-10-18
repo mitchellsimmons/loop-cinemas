@@ -1,6 +1,6 @@
 import { Carousel } from 'components';
 import { ComingSoonCarouselCard } from 'views/Home';
-import { useFetchUpcoming } from 'api/movies';
+import { useFetchUpcoming } from '@/api/movies';
 import Wrapper from './ComingSoonSection.styles';
 
 const ComingSoonSection = () => {

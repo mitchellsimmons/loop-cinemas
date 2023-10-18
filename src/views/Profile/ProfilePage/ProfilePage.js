@@ -3,18 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { IoMail } from 'react-icons/io5';
 
-import { useUserContext } from 'context/UserProvider';
-import { validateEmail, validatePassword } from 'api/auth';
-import { useFetchShowing } from 'api/movies';
+import { useUserContext } from '@/context/UserProvider';
+import { validateEmail, validatePassword } from '@/api/auth';
+import { useFetchShowing } from '@/api/movies';
 import {
     getFormattedDateFromDay,
     useFetchReservationsByUserId,
-} from 'api/reservations';
+} from '@/api/reservations';
 import {
     useDeleteAccount,
     useUpdateProfile,
     useUpdatePassword,
-} from 'api/users';
+} from '@/api/users';
 
 const ProfilePage = () => {
     const { user } = useUserContext();

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useFetchMovieById, useFetchMovieTimeById } from 'api/movies';
-import { getFormattedDateFromDay, useCreateReservation } from 'api/reservations';
+import { useFetchMovieById, useFetchMovieTimeById } from '@/api/movies';
+import {
+    getFormattedDateFromDay,
+    useCreateReservation,
+} from '@/api/reservations';
 import { Button, LinkButton, UserModalContainer } from 'components';
-import { useUserContext } from 'context/UserProvider';
-import { useMediaContext } from 'context/MediaProvider';
+import { useUserContext } from '@/context/UserProvider';
+import { useMediaContext } from '@/context/MediaProvider';
 import Wrapper from './BookingPage.styles';
 
 // --- Constants ---
@@ -126,7 +129,11 @@ const BookingPage = () => {
                 }
             }
 
-            rowsOfSeats.push(<div key={rowIndex} className='row'>{rowOfSeats}</div>);
+            rowsOfSeats.push(
+                <div key={rowIndex} className='row'>
+                    {rowOfSeats}
+                </div>
+            );
         }
 
         return <div className='container'>{rowsOfSeats}</div>;

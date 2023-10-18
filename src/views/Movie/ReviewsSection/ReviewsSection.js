@@ -5,15 +5,15 @@ import 'react-quill/dist/quill.snow.css';
 import Wrapper from './ReviewsSection.styles';
 import { Button, LinkButton, UserModalContainer } from 'components';
 import { Review, RatingSelector } from 'views/Movie';
-import { useUserContext } from 'context/UserProvider';
-import { useMediaContext } from 'context/MediaProvider';
+import { useUserContext } from '@/context/UserProvider';
+import { useMediaContext } from '@/context/MediaProvider';
 import {
     getUserReviewWaitTime,
     useFetchUserReviewsByMovieId,
     useEditReview,
     useCreateReview,
     useDeleteReview,
-} from 'api/reviews';
+} from '@/api/reviews';
 
 const CHAR_LIMIT = 600;
 // Empty quill post contains a newline character

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { getQualifiedResource, useFetchShowing } from 'api/movies';
+import { getQualifiedResource, useFetchShowing } from '@/api/movies';
 import Wrapper from './HeroCarousel.styles';
 
 const HeroCarousel = () => {

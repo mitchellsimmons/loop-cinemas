@@ -5,11 +5,11 @@ import { GoTriangleUp } from 'react-icons/go';
 import { toast } from 'react-toastify';
 
 import Wrapper from './Navbar.styles';
-import { logoImage } from 'assets/images';
+import { logoImage } from '@/assets/images';
 import { NavLinkButton, SearchSection, UserModalContainer } from 'components';
-import { useLogout } from 'api/auth';
-import { useUserContext } from 'context/UserProvider';
-import { useMediaContext } from 'context/MediaProvider';
+import { useLogout } from '@/api/auth';
+import { useUserContext } from '@/context/UserProvider';
+import { useMediaContext } from '@/context/MediaProvider';
 
 const Navbar = () => {
     const { user } = useUserContext();

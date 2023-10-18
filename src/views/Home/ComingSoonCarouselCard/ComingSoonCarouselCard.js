@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { getQualifiedResource } from 'api/movies';
+import { getQualifiedResource } from '@/api/movies';
 import Wrapper from './ComingSoonCarouselCard.styles';
 
 const ComingSoonCarouselCard = ({ titleShort, resource, rating, release }) => {

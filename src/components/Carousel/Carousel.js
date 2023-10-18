@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { CarouselCard } from 'components';
-import { useMediaContext } from 'context/MediaProvider';
+import { useMediaContext } from '@/context/MediaProvider';
 import Wrapper from './Carousel.styles';
 
 const Carousel = ({ children }) => {

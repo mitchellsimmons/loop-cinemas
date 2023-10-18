@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { DaySelector, Carousel } from 'components';
-import { getAverageRatingFromReviews, useFetchShowing } from 'api/movies';
+import { getAverageRatingFromReviews, useFetchShowing } from '@/api/movies';
 import { NowShowingCarouselCard } from 'views/Home';
 import Wrapper from './NowShowingSection.styles';
 

@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import axios from './axios';
-import { useUserContext } from 'context/UserProvider';
-import { useAxiosProtected } from 'api/auth';
+import { useUserContext } from '@/context/UserProvider';
+import { useAxiosProtected } from '@/api/auth';
 
 // --- Constants ---
 

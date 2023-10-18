@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import axios from './axios';
 import { useAxiosProtected } from './auth';
-import { useUserContext } from 'context/UserProvider';
+import { useUserContext } from '@/context/UserProvider';
 
 // --- Constants ---
 

@@ -1,4 +1,4 @@
-import { useUserContext } from 'context/UserProvider';
+import { useUserContext } from '@/context/UserProvider';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
 
 const RequireLoggedOut = () => {
@@ -7,7 +7,7 @@ const RequireLoggedOut = () => {
 
     return user ? (
         <Navigate to='/' state={{ from: location }} replace />
-        ) : (
+    ) : (
         <Outlet />
     );
 };

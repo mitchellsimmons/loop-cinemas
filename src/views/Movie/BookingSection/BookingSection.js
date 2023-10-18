@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import Wrapper from './BookingSection.styles';
-import { DaySelector } from 'components';
-import Selector from 'components/Selector/Selector';
+import { DaySelector, Selector } from 'components';
 import { useNavigate } from 'react-router-dom';
 
 const BookingSection = ({ times }) => {

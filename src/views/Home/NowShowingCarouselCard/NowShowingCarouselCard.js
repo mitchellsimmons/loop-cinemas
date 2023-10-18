@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { Rating } from 'components';
-import { getQualifiedResource } from 'api/movies';
+import { getQualifiedResource } from '@/api/movies';
 import Wrapper from './NowShowingCarouselCard.styles';
 
 const NowShowingCarouselCard = ({

@@ -5,7 +5,7 @@ import {
     getAverageRatingFromReviews,
     getQualifiedResource,
     useFetchMoviesByTitleQuery,
-} from 'api/movies';
+} from '@/api/movies';
 import { Rating } from 'components';
 import Wrapper from './Search.styles';
 

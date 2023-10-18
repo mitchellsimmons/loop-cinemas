@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import axios, { axiosProtected } from './axios';
-import { useUserContext } from 'context/UserProvider';
+import { useUserContext } from '@/context/UserProvider';
 
 // --- Constants ---
 

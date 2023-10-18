@@ -22,7 +22,7 @@ export const getAverageRatingFromReviews = (reviews) => {
 };
 
 export const getQualifiedResource = (resource) => {
-    return process.env.REACT_APP_AWS_BUCKET_URL + '/' + resource;
+    return import.meta.env.VITE_AWS_BUCKET_URL + '/' + resource;
 };
 
 // --- GET ---

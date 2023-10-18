@@ -4,10 +4,10 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { IoMail } from 'react-icons/io5';
 
-import { useMediaContext } from 'context/MediaProvider';
-import { useLogin } from 'api/auth';
+import { useMediaContext } from '@/context/MediaProvider';
+import { useLogin } from '@/api/auth';
 import { Button } from 'components';
-import { cinemaImage } from 'assets/images';
+import { cinemaImage } from '@/assets/images';
 import Wrapper from './SignInPage.styles';
 
 const SignInPage = ({ onSuccess, onNotMember }) => {

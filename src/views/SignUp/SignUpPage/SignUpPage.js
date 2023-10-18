@@ -4,11 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { IoMail } from 'react-icons/io5';
 
-import { validateEmail, validatePassword } from 'api/auth';
-import { useRegister } from 'api/users';
-import { useMediaContext } from 'context/MediaProvider';
+import { validateEmail, validatePassword } from '@/api/auth';
+import { useRegister } from '@/api/users';
+import { useMediaContext } from '@/context/MediaProvider';
 import { Button } from 'components';
-import { cinemaImage } from 'assets/images';
+import { cinemaImage } from '@/assets/images';
 import Wrapper from './SignUpPage.styles';
 
 const SignUpPage = ({ onSuccess, onAlreadyMember }) => {
