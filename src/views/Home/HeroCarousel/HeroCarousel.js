@@ -3,8 +3,11 @@ import React, { useState } from 'react';
 import { getQualifiedResource, useFetchShowing } from '@/api/movies';
 import Wrapper from './HeroCarousel.styles';
 
+const CARD_COUNT = 5;
+
 const HeroCarousel = () => {
     const [currentImage, setCurrentImage] = useState(0);
+    const [cardIndex, setCardIndex] = useState(0);
     const { isLoading, isError, data } = useFetchShowing();
 
     if (isLoading || isError) {
@@ -17,6 +20,24 @@ const HeroCarousel = () => {
 
     const nextImage = () => {
         setCurrentImage((prev) => (prev + 1) % data.length);
+    };
+
+    const getButtons = () => {
+        let buttons = [];
+
+        for (let i = 0; i < CARD_COUNT; ++i) {
+            buttons.push(
+                <button
+                    key={i}
+                    onClick={() => handleClick(i)}
+                    className={`carousel-btn ${
+                        i === cardIndex && 'active-btn'
+                    }`}
+                ></button>
+            );
+        }
+
+        return buttons;
     };
 
     return (
@@ -56,6 +77,7 @@ const HeroCarousel = () => {
                     }}
                 ></div>
             </div>
+            <div className='carousel-selector'>{getButtons()}</div>
         </Wrapper>
     );
 };

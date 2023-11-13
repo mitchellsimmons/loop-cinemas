@@ -14,8 +14,10 @@ const Wrapper = styled.section`
         left: -10%;
         max-width: none;
         margin: 0 auto;
-        height: 50vh;
-        max-height: 600px;
+        height: 35vw;
+        max-height: 520px;
+        padding: 15px;
+        margin-bottom: 30px;
 
         .prev-image,
         .next-image,
@@ -33,19 +35,22 @@ const Wrapper = styled.section`
 
         .prev-image,
         .next-image {
-            min-width: 600px;
+            min-width: 800px;
             height: 90%;
             cursor: pointer;
             z-index: 1;
         }
 
         .main-image-container {
-            min-width: 60%;
-            height: 10px;
+            position: relative;
+            max-width: 1000px;
+            height: 100%;
+            flex-basis: 60%;
+            flex-shrink: 0;
         }
 
         .main-image {
-            min-width: 60%;
+            width: 100%;
             height: 100%;
             z-index: 2;
             overflow: hidden;
@@ -71,6 +76,25 @@ const Wrapper = styled.section`
             left: 10px;
             opacity: 1;
         }
+    }
+
+    .carousel-selector {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .carousel-btn {
+        width: 9px;
+        height: 9px;
+        border: none;
+        border-radius: 5px;
+        background-color: var(--form-text-color);
+        cursor: pointer;
+    }
+
+    .active-btn {
+        background-color: var(--primary-color);
     }
 `;
 
