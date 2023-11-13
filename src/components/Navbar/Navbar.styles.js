@@ -5,8 +5,8 @@ const Wrapper = styled.nav`
         width: var(--view-width);
         max-width: var(--max-width);
         margin: 0 auto;
-        margin-top: 45px;
-        margin-bottom: 25px;
+        margin-top: 30px;
+        margin-bottom: 45px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -14,7 +14,7 @@ const Wrapper = styled.nav`
     }
 
     .nav-logo {
-        width: 122px;
+        width: 100px;
         margin: auto 0;
     }
 
@@ -228,7 +228,7 @@ const Wrapper = styled.nav`
             height: 100vh;
             background-color: var(--dark-color);
             z-index: 100;
-            padding: 45px 30px 45px 30px;
+            padding: 30px 30px 45px 30px;
             transition: right ease-in-out 200ms;
 
             #search-section {
@@ -237,7 +237,7 @@ const Wrapper = styled.nav`
 
                 // Make search results fit within screen height and scrollable
                 .results {
-                    max-height: calc(100vh - 200px);
+                    max-height: 335px;
                     overflow-y: auto;
                 }
             }
@@ -266,6 +266,12 @@ const Wrapper = styled.nav`
     }
 
     // --- DESKTOP ---
+    @media (min-width: 640px) {
+        .nav-logo {
+            width: 110px;
+        }
+    }
+
     @media (min-width: 1024px) {
         .nav {
             margin-top: 70px;
