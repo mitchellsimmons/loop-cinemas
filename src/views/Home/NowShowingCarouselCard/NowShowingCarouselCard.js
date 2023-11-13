@@ -27,14 +27,23 @@ const NowShowingCarouselCard = ({
                     <Rating rating={starRating} />
                 </div>
                 <h3>{titleShort}</h3>
-                <div id='times-container'>
+            </Link>
+            <div id='times-container'>
+                <div id='absolute-container'>
                     {times
                         .filter((time) => time.day === day)
                         .map((time, index) => {
-                            return <p key={index}>{time.time}</p>;
+                            return (
+                                <Link
+                                    to={`/booking/${time.movieId}/${time.id}`}
+                                    key={index}
+                                >
+                                    {time.time}
+                                </Link>
+                            );
                         })}
                 </div>
-            </Link>
+            </div>
         </Wrapper>
     );
 };

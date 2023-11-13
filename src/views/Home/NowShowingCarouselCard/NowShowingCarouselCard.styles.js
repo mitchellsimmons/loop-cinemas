@@ -30,11 +30,15 @@ const Wrapper = styled.div`
     }
 
     #times-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
+        position: relative;
 
-        p {
+        #absolute-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        a {
             text-transform: uppercase;
             font-size: 16px;
             font-weight: 500;
@@ -42,7 +46,13 @@ const Wrapper = styled.div`
             background-color: var(--form-color);
             padding: 6px 12px;
             border-radius: var(--small-border-radius);
-            transition: color ease-in-out 200ms;
+            transition: color ease-in-out 200ms, transform ease-in-out 200ms;
+
+            &:hover {
+                color: white;
+                transition: color ease-in-out 200ms, transform ease-in-out 200ms;
+                transform: scale(1.1);
+            }
         }
     }
 
@@ -55,8 +65,7 @@ const Wrapper = styled.div`
         transform: translate3d(0, 0, 0);
     }
 
-    &:hover h3,
-    &:hover #times-container p {
+    &:hover h3 {
         color: white;
         transition: color ease-in-out 200ms;
     }
