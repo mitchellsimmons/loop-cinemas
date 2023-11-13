@@ -1,18 +1,23 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+    --padding: 10px;
     --flex-gap: 30px;
     --card-width-1: 100%;
     --card-width-2: calc((100% - var(--flex-gap)) / 2);
     --card-width-3: calc((100% - var(--flex-gap) * 2) / 3);
 
     .carousel-items {
-        margin-bottom: 60px;
+        width: calc(100% + 2 * var(--padding));
+        margin-bottom: 30px;
         display: flex;
-        gap: 30px;
+        gap: 10px;
         overflow: scroll;
         position: relative;
         scroll-snap-type: x mandatory;
+        padding: var(--padding);
+        top: calc(-1 * var(--padding));
+        left: calc(-1 * var(--padding));
 
         // Hide scrollbars
         -ms-overflow-style: none; /* IE and Edge */
