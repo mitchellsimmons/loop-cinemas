@@ -6,74 +6,86 @@ const Wrapper = styled.section`
     position: relative;
 
     .carousel-container {
-        overflow: hidden;
+        overflow: scroll;
+        scroll-snap-type: x mandatory;
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 30px;
-        left: -10%;
-        max-width: none;
-        margin: 0 auto;
+        justify-content: left;
+        gap: 70px;
+        /* left: -10%; */
+        /* max-width: none; */
+        /* margin: 0 auto; */
         height: 35vw;
         max-height: 520px;
-        padding: 15px;
+        /* padding: 15px; */
         margin-bottom: 30px;
 
-        .prev-image,
-        .next-image,
-        .main-image {
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.3s ease-in-out;
+        // Hide scrollbars
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        &::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+
+        img {
             border-radius: 15px;
-            margin: 0;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .main-image:hover {
-            transform: translateX(-50%) scale(1.05);
-        }
-
-        .prev-image,
-        .next-image {
+        .carousel-card {
             min-width: 800px;
             height: 90%;
             cursor: pointer;
             z-index: 1;
+            scroll-snap-align: center;
+
+            opacity: 0;
+            scale: 1;
+            transition: scale ease-in-out 200ms, opacity ease-in-out 200ms;
         }
 
-        .main-image-container {
-            position: relative;
-            max-width: 1000px;
-            height: 100%;
-            flex-basis: 60%;
-            flex-shrink: 0;
-        }
-
-        .main-image {
-            width: 100%;
-            height: 100%;
+        .main-card {
+            scale: 1.1;
+            /* transition: scale ease-in-out 200ms; */
             z-index: 2;
-            overflow: hidden;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
+        }
+
+        .main-card,
+        .prev-card,
+        .next-card {
+            opacity: 1;
+            transition: scale ease-in-out 200ms, opacity ease-in-out 200ms;
+        }
+
+        .image-container {
+            height: 100%;
+            position: relative;
         }
 
         .movie-name {
-            position: absolute;
+            left: 10px;
+            /* opacity: 1; */
+            /* transition: opacity ease-in-out 200ms; */
+        }
+
+        .movie-name {
+            /* display: none; */
+            opacity: 0;
+            position: fixed;
             bottom: 15%;
             left: -100%;
+            left: 10px;
             padding: 10px 00px;
             background-color: rgba(0, 0, 0, 0.7);
             color: white;
             font-size: 1.5rem;
             border-radius: 5px;
-            transition: all 0.3s ease-in-out;
+            /* transition: all 0.3s ease-in-out; */
+            /* transition: opacity ease-in-out 200ms; */
         }
 
-        &:hover .movie-name {
-            left: 10px;
+        .show {
             opacity: 1;
         }
     }
