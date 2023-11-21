@@ -5,48 +5,66 @@ import { InView } from 'react-intersection-observer';
 import { getQualifiedResource, useFetchShowing } from '@/api/movies';
 import Wrapper from './HeroCarousel.styles';
 
-const CARD_COUNT = 5;
+const CARD_COUNT = 6;
 
 const HeroCarousel = () => {
     const [cardIndex, setCardIndex] = useState(CARD_COUNT);
     const { isLoading, isError, data } = useFetchShowing();
     const [hasLoaded, setHasLoaded] = useState(false);
     const [carouselItemsContainer, setCarouselItemsContainer] = useState(null);
-    // const carouselItemsContainer = useRef();
 
     // useEffect(() => {
-    //     console.log(carouselItemsContainer?.current);
-    //     if (carouselItemsContainer?.current) {
-    //         let cards =
-    //             carouselItemsContainer.current.querySelectorAll(
-    //                 '.carousel-card'
-    //             );
-    //         console.log(cards);
-
-    //         carouselItemsContainer.current.scrollTo({
-    //             left: cards[cardIndex].offsetLeft,
-    //             behavior: 'smooth',
-    //         });
+    //     if (data) {
+    //         setMovies(
+    //             data
+    //                 .slice(0, CARD_COUNT)
+    //                 .concat(data.slice(0, CARD_COUNT))
+    //                 .map((movie, index) => [movie, index])
+    //         );
     //     }
-    // }, []);
+    // }, [data]);
 
-    const handleScrollEnd = (event) => {
-        console.log(event);
-        if (event?.target) {
-            let cards = event.target.querySelectorAll('.carousel-card');
+    const handleScroll = (event) => {
+        let cards = carouselItemsContainer.querySelectorAll('.carousel-card');
 
-            for (let i = 0; i < cards.length; ++i) {
-                const card = cards[i];
-                let span = card.querySelector('.movie-name');
-                console.log(cardIndex);
+        const minScroll =
+            cards[CARD_COUNT - 3].offsetLeft +
+            cards[CARD_COUNT - 3].clientWidth / 2 -
+            document.documentElement.clientWidth / 2;
 
-                if (i === cardIndex) {
-                    console.log(span);
-                    span.classList.add('show');
-                } else {
-                    span.classList.remove('show');
-                }
-            }
+        const maxScroll =
+            cards[CARD_COUNT + 3].offsetLeft +
+            cards[CARD_COUNT + 3].clientWidth / 2 -
+            document.documentElement.clientWidth / 2;
+
+        // const maxScroll =
+        //     cards[CARD_COUNT + 3].offsetLeft -
+        //     document.documentElement.clientWidth / 2;
+
+        console.log(minScroll);
+        console.log(maxScroll);
+        console.log(carouselItemsContainer.scrollLeft);
+
+        if (carouselItemsContainer.scrollLeft < minScroll) {
+            event.preventDefault();
+
+            const scrollDelta =
+                cards[CARD_COUNT + 3].offsetLeft -
+                document.documentElement.clientWidth / 2;
+
+            carouselItemsContainer.scroll({
+                left: scrollDelta,
+            });
+        } else if (carouselItemsContainer.scrollLeft > maxScroll) {
+            event.preventDefault();
+
+            const scrollDelta =
+                cards[CARD_COUNT - 3].offsetLeft -
+                document.documentElement.clientWidth / 2;
+
+            carouselItemsContainer.scroll({
+                left: scrollDelta,
+            });
         }
     };
 
@@ -70,44 +88,11 @@ const HeroCarousel = () => {
         setTimeout(() => {
             setHasLoaded(true);
         }, 100);
+
+        carouselItemsContainer.addEventListener('scroll', handleScroll);
     }, [carouselItemsContainer]);
 
-    // Callback will be called after initial render
-    // Allowing us to scroll the carousel to the initial card
-    // const carouselItemsContainer = useCallback((node) => {
-    //     if (node !== null) {
-    //         let cards = node.querySelectorAll('.carousel-card');
-
-    //         const scrollDelta =
-    //             cards[cardIndex].offsetLeft -
-    //             document.documentElement.clientWidth / 2;
-
-    //         node.scrollTo({
-    //             left: scrollDelta,
-    //         });
-
-    //         setTimeout(() => {
-    //             setHasLoaded(true);
-    //         }, 100);
-    //     }
-    // }, []);
-
     useEffect(() => {
-        let listener = null;
-        console.log(carouselItemsContainer);
-
-        // if (carouselItemsContainer) {
-        //     listener = carouselItemsContainer.addEventListener(
-        //         'scrollend',
-        //         handleScrollEnd
-        //     );
-        // }
-
-        // return () => {
-        //     if (listener) {
-        //         carouselItemsContainer.removeEventListener(listener);
-        //     }
-        // };
         if (!carouselItemsContainer) {
             return;
         }
@@ -124,6 +109,20 @@ const HeroCarousel = () => {
                 span.classList.remove('show');
             }
         }
+        // cards[CARD_COUNT + 3].classList.add('no-animate');
+        // cards[CARD_COUNT - 3].classList.add('no-animate');
+
+        // if (cardIndex < CARD_COUNT) {
+        //     cards[CARD_COUNT + 3].classList.add('no-animate');
+        //     setTimeout(() => {
+        //         cards[CARD_COUNT - 3].classList.remove('no-animate');
+        //     }, 2000);
+        // } else if (cardIndex > CARD_COUNT) {
+        //     cards[CARD_COUNT - 3].classList.add('no-animate');
+        //     setTimeout(() => {
+        //         cards[CARD_COUNT + 3].classList.remove('no-animate');
+        //     }, 2000);
+        // }
     }, [cardIndex]);
 
     if (isLoading || isError) {
@@ -161,6 +160,12 @@ const HeroCarousel = () => {
             entry.boundingClientRect.y +
                 entry.boundingClientRect.height * 0.9999
         );
+
+        console.log(index);
+        console.log(centerImage);
+        if (!(centerImage instanceof HTMLImageElement)) {
+            return;
+        }
 
         if (hasLoaded && centerImage) {
             setCardIndex(Number(centerImage.dataset.index));
@@ -205,7 +210,7 @@ const HeroCarousel = () => {
                 ></div>
             </div> */}
             <div className='carousel-container' ref={setCarouselItemsContainer}>
-                {movies.map(({ titleShort, resource }, index) => {
+                {movies.map(({ title, titleShort, resource }, index) => {
                     return (
                         <Link
                             key={index}
@@ -214,6 +219,22 @@ const HeroCarousel = () => {
                                 cardIndex === index ? 'main-card' : ''
                             } ${cardIndex - 1 === index ? 'prev-card' : ''} ${
                                 cardIndex + 1 === index ? 'next-card' : ''
+                            } ${
+                                index < CARD_COUNT - 3 || index > CARD_COUNT + 3
+                                    ? 'no-snap'
+                                    : ''
+                            } ${
+                                (cardIndex === CARD_COUNT - 3 ||
+                                    cardIndex === CARD_COUNT + 3) &&
+                                (index === CARD_COUNT - 3 ||
+                                    index === CARD_COUNT + 3)
+                                    ? 'force-scale'
+                                    : ''
+                            } ${
+                                cardIndex === CARD_COUNT - 3 ||
+                                cardIndex === CARD_COUNT + 3
+                                    ? 'force-opacity'
+                                    : ''
                             }`}
                         >
                             <InView
@@ -233,9 +254,7 @@ const HeroCarousel = () => {
                                     alt={titleShort}
                                     data-index={index}
                                 />
-                                <span className='movie-name'>
-                                    {movies[index].title}
-                                </span>
+                                <span className='movie-name'>{title}</span>
                             </InView>
                         </Link>
                     );

@@ -45,6 +45,18 @@ const Wrapper = styled.section`
             transition: scale ease-in-out 200ms, opacity ease-in-out 200ms;
         }
 
+        .no-snap {
+            scroll-snap-align: none;
+        }
+
+        .force-scale {
+            scale: 1.1;
+        }
+
+        .force-opacity {
+            opacity: 1;
+        }
+
         .main-card {
             scale: 1.1;
             /* transition: scale ease-in-out 200ms; */
