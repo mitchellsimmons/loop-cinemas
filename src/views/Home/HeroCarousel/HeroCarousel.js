@@ -231,8 +231,11 @@ const HeroCarousel = () => {
                                     ? 'force-scale'
                                     : ''
                             } ${
-                                cardIndex === CARD_COUNT - 3 ||
-                                cardIndex === CARD_COUNT + 3
+                                (cardIndex === CARD_COUNT - 3 ||
+                                    cardIndex === CARD_COUNT + 3) &&
+                                ((index >= CARD_COUNT + 2 &&
+                                    index <= CARD_COUNT + 4) ||
+                                    (index >= 2 && index <= 4))
                                     ? 'force-opacity'
                                     : ''
                             }`}
