@@ -31,6 +31,7 @@ const Wrapper = styled.section`
             border-radius: 15px;
             height: 100%;
             object-fit: cover;
+            z-index: 1000;
         }
 
         .carousel-card {
