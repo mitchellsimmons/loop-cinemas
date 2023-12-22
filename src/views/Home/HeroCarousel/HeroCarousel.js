@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { InView } from 'react-intersection-observer';
 
-import { getQualifiedResource, useFetchShowing } from '@/api/movies';
+import {
+    getAverageRatingFromReviews,
+    getQualifiedResource,
+    useFetchShowing,
+} from '@/api/movies';
 import Wrapper from './HeroCarousel.styles';
 
 // Must be even number for looping transition to work
@@ -12,8 +15,12 @@ const HALF_CARD_COUNT = CARD_COUNT / 2;
 const HeroCarousel = () => {
     // Initial card index is minimum card
     const [cardIndex, setCardIndex] = useState(HALF_CARD_COUNT);
-    const { isLoading, isError, data } = useFetchShowing();
-    const [hasLoaded, setHasLoaded] = useState(false);
+    const { isLoading, isError, data } = useFetchShowing(
+        false,
+        false,
+        true,
+        true
+    );
     const [carouselItemsContainer, setCarouselItemsContainer] = useState(null);
     const scrollInterval = useRef(null);
 
@@ -153,10 +160,6 @@ const HeroCarousel = () => {
         carouselItemsContainer.scrollTo({
             left: scrollDelta,
         });
-
-        setTimeout(() => {
-            setHasLoaded(true);
-        }, 100);
     }, [carouselItemsContainer]);
 
     // useEffect(() => {
@@ -194,12 +197,29 @@ const HeroCarousel = () => {
         return;
     }
 
-    // We want the first image to be at the minimum card index (ie. CARD_COUNT / 2)
-    // This way large scrolls will always snap to this image
-    const movies = data
-        .slice(CARD_COUNT / 2, CARD_COUNT)
-        .concat(data.slice(0, CARD_COUNT))
-        .concat(data.slice(0, CARD_COUNT / 2));
+    const getMovies = () => {
+        const movies = [...data];
+
+        for (const movie of movies) {
+            const starRating = getAverageRatingFromReviews([
+                ...movie.criticReviews,
+                ...movie.userReviews,
+            ]);
+            movie.starRating = starRating;
+        }
+
+        // Sort movies in descending order
+        movies.sort((movie1, movie2) => {
+            return movie2.starRating - movie1.starRating;
+        });
+
+        // We want the first image to be at the minimum card index (ie. HALF_CARD_COUNT)
+        // This way large scrolls will always snap to this image
+        return movies
+            .slice(HALF_CARD_COUNT, CARD_COUNT)
+            .concat(movies.slice(0, CARD_COUNT))
+            .concat(movies.slice(0, HALF_CARD_COUNT));
+    };
 
     const getButtons = () => {
         let buttons = [];
@@ -210,8 +230,8 @@ const HeroCarousel = () => {
                     key={i}
                     onClick={() => handleClick(i)}
                     className={`carousel-btn ${
-                        i === cardIndex - CARD_COUNT / 2 ||
-                        (i === 0 && cardIndex === CARD_COUNT + CARD_COUNT / 2)
+                        i === cardIndex - HALF_CARD_COUNT ||
+                        (i === 0 && cardIndex === CARD_COUNT + HALF_CARD_COUNT)
                             ? 'active-btn'
                             : ''
                     }`}
@@ -222,35 +242,10 @@ const HeroCarousel = () => {
         return buttons;
     };
 
-    // Update card index when a card is scrolled into view
-    const handleInView = (inView, entry) => {
-        // // If the screen is wide enough, it is possible there are multiple cards in view
-        // // Therefore we will check for the central card
-        // const viewportCenter = document.documentElement.clientWidth / 2;
-        // // const centerImage = document.elementFromPoint(
-        // //     viewportCenter,
-        // //     entry.boundingClientRect.y +
-        // //         entry.boundingClientRect.height * 0.9999
-        // // );
-        // const centerImage = document.elementFromPoint(
-        //     viewportCenter,
-        //     carouselItemsContainer.getBoundingClientRect().bottom -
-        //         carouselItemsContainer.getBoundingClientRect().height * 0.5
-        // );
-        // console.log(centerImage);
-        // // Sometimes elementFromPoint will fail due to the transition
-        // if (!(centerImage instanceof HTMLImageElement)) {
-        //     return;
-        // }
-        // if (hasLoaded && centerImage) {
-        //     setCardIndex(Number(centerImage.dataset.index));
-        // }
-    };
-
     return (
         <Wrapper id='hero-carousel'>
             <div className='carousel-container' ref={setCarouselItemsContainer}>
-                {movies.map(({ title, titleShort, resource }, index) => {
+                {getMovies().map(({ title, titleShort, resource }, index) => {
                     return (
                         <Link
                             key={index}
@@ -261,56 +256,53 @@ const HeroCarousel = () => {
                             } ${cardIndex - 1 === index ? 'prev-card' : ''} ${
                                 cardIndex + 1 === index ? 'next-card' : ''
                             } ${
-                                index < CARD_COUNT - 3 || index > CARD_COUNT + 3
+                                index < HALF_CARD_COUNT ||
+                                index > CARD_COUNT + HALF_CARD_COUNT
                                     ? 'no-snap'
                                     : ''
                             } ${
-                                (cardIndex === CARD_COUNT - 3 ||
-                                    cardIndex === CARD_COUNT + 3) &&
-                                (index === CARD_COUNT - 3 ||
-                                    index === CARD_COUNT + 3)
+                                (cardIndex === HALF_CARD_COUNT ||
+                                    cardIndex ===
+                                        CARD_COUNT + HALF_CARD_COUNT) &&
+                                (index === HALF_CARD_COUNT ||
+                                    index === CARD_COUNT + HALF_CARD_COUNT)
                                     ? 'force-scale'
                                     : ''
                             } ${
-                                (cardIndex === CARD_COUNT - 3 ||
-                                    cardIndex === CARD_COUNT + 3) &&
-                                ((index >= CARD_COUNT + 2 &&
-                                    index <= CARD_COUNT + 4) ||
-                                    (index >= 2 && index <= 4))
+                                (cardIndex === HALF_CARD_COUNT ||
+                                    cardIndex ===
+                                        CARD_COUNT + HALF_CARD_COUNT) &&
+                                ((index >= CARD_COUNT + HALF_CARD_COUNT - 1 &&
+                                    index <=
+                                        CARD_COUNT + HALF_CARD_COUNT + 1) ||
+                                    (index >= HALF_CARD_COUNT - 1 &&
+                                        index <= HALF_CARD_COUNT + 1))
                                     ? 'force-opacity'
                                     : ''
                             }`}
                         >
-                            <InView
-                                as='div'
-                                threshold={1}
-                                // Shrink the bounding rect so that only the bottom needs to be visible
-                                // The observer should still be triggered if the top is cut off (ie. as long as the entire width is visible)
-                                rootMargin='99.99% 0% 0% 0%'
-                                onChange={(inView, entry) => {
-                                    handleInView(inView, entry);
-                                    // Sometimes elementFromPoint fails due to the transition
-                                    // This will ensure the image is always found
-                                    setTimeout(() => {
-                                        handleInView(inView, entry);
-                                    }, 200);
-                                }}
-                                className='image-container'
-                            >
+                            <div className='image-container'>
                                 <img
                                     src={getQualifiedResource(resource)}
                                     alt={titleShort}
-                                    data-index={index}
                                 />
-                                {/* <span className='movie-name'>{title}</span> */}
                                 <span
                                     className={`movie-name ${
                                         cardIndex === index ? 'show' : ''
+                                    }  ${
+                                        (cardIndex === HALF_CARD_COUNT ||
+                                            cardIndex ===
+                                                CARD_COUNT + HALF_CARD_COUNT) &&
+                                        (index === HALF_CARD_COUNT ||
+                                            index ===
+                                                CARD_COUNT + HALF_CARD_COUNT)
+                                            ? 'show'
+                                            : ''
                                     }`}
                                 >
                                     {title}
                                 </span>
-                            </InView>
+                            </div>
                         </Link>
                     );
                 })}
