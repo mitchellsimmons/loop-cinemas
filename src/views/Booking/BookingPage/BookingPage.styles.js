@@ -14,8 +14,43 @@ const Wrapper = styled.section`
         }
     }
 
+    h3 {
+        font-size: 26px;
+    }
+
     h4 {
         font-size: 18px;
+    }
+
+    h5 {
+        font-size: 18px;
+    }
+
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    .select-seats-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .screen-container {
+        height: 130px;
+
+        img {
+            display: block;
+            object-fit: cover;
+            margin-top: 5px;
+            min-width: 280px;
+            width: 60vw;
+            height: 160px;
+            background: green;
+            transform: perspective(400px) rotateX(-60deg);
+        }
     }
 
     .details {
@@ -23,14 +58,14 @@ const Wrapper = styled.section`
         flex-direction: column;
         align-items: center;
         gap: 10px;
-        margin-top: 10px;
+        margin-top: 30px;
     }
 
-    .container {
+    .seat-container {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        margin: 50px 0;
+        margin: 35px 0px 50px 0px;
     }
 
     .row {
@@ -42,7 +77,6 @@ const Wrapper = styled.section`
 
         p {
             color: var(--primary-color);
-            height: 100%;
             margin: auto 5px;
         }
     }
@@ -58,6 +92,7 @@ const Wrapper = styled.section`
         color: var(--background-color);
         font-weight: 500;
         font-size: 15px;
+        cursor: pointer;
         transition: background-color ease-in-out 200ms;
 
         &:hover,
@@ -67,6 +102,7 @@ const Wrapper = styled.section`
         }
 
         &.reserved {
+            cursor: default;
             transform: scale(0.7);
             background-color: var(--form-color);
 
@@ -78,6 +114,21 @@ const Wrapper = styled.section`
 
     .btn {
         margin-bottom: 200px;
+    }
+
+    @media (min-width: 640px) {
+        .screen-container {
+            img {
+                width: 400px;
+            }
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .main-container {
+            flex-direction: row;
+            gap: 150px;
+        }
     }
 `;
 

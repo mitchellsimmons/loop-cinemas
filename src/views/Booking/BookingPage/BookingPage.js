@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useFetchMovieById, useFetchMovieTimeById } from '@/api/movies';
+import {
+    getQualifiedResource,
+    useFetchMovieById,
+    useFetchMovieTimeById,
+} from '@/api/movies';
 import {
     getFormattedDateFromDay,
     useCreateReservation,
@@ -136,7 +140,7 @@ const BookingPage = () => {
             );
         }
 
-        return <div className='container'>{rowsOfSeats}</div>;
+        return <div className='seat-container'>{rowsOfSeats}</div>;
     };
 
     if (isLoading || isError) {
@@ -147,35 +151,49 @@ const BookingPage = () => {
 
     return (
         <Wrapper>
-            <h2>Booking</h2>
-            <div className='details'>
-                <h3>{movie.title}</h3>
-                <h4>
-                    {dateStr} - {time.time}
-                </h4>
-                <h3>Screen 1</h3>
+            <div className='main-container'>
+                <div className='booking-container'>
+                    <h2>Booking</h2>
+                    <div className='details'>
+                        <h3>{movie.title}</h3>
+                        <h4>
+                            {dateStr} - {time.time}
+                        </h4>
+                        <h5>Screen 1</h5>
+                    </div>
+                </div>
+                <div className='select-seats-container'>
+                    <h2>Select Seats</h2>
+                    <div className='screen-container'>
+                        <img
+                            src={getQualifiedResource(movie.resource)}
+                            alt={movie.title}
+                        />
+                    </div>
+                    {getSeatingPlan()}
+                    {user && (
+                        <Button className='btn' onClick={handleBookingSubmit}>
+                            Book Now
+                        </Button>
+                    )}
+                    {!user && isDesktop && (
+                        <>
+                            <LinkButton onClick={toggleSignInPage}>
+                                sign in
+                            </LinkButton>
+                            <UserModalContainer
+                                isSignInPageOpen={isSignInPageOpen}
+                                isSignUpPageOpen={isSignUpPageOpen}
+                                toggleSignInPage={toggleSignInPage}
+                                toggleSignUpPage={toggleSignUpPage}
+                            />
+                        </>
+                    )}
+                    {!user && !isDesktop && (
+                        <LinkButton to='/sign-in'>sign in</LinkButton>
+                    )}
+                </div>
             </div>
-            <h2>Select Seats</h2>
-            {getSeatingPlan()}
-            {user && (
-                <Button className='btn' onClick={handleBookingSubmit}>
-                    Book Now
-                </Button>
-            )}
-            {!user && isDesktop && (
-                <>
-                    <LinkButton onClick={toggleSignInPage}>sign in</LinkButton>
-                    <UserModalContainer
-                        isSignInPageOpen={isSignInPageOpen}
-                        isSignUpPageOpen={isSignUpPageOpen}
-                        toggleSignInPage={toggleSignInPage}
-                        toggleSignUpPage={toggleSignUpPage}
-                    />
-                </>
-            )}
-            {!user && !isDesktop && (
-                <LinkButton to='/sign-in'>sign in</LinkButton>
-            )}
         </Wrapper>
     );
 };
