@@ -1,6 +1,8 @@
 # Loop Cinemas
 
-A fully responsive (mock) website developed for Loop Cinemas, as part of my Fullstack Development course at RMIT University.
+A fully responsive (mock) website developed for Loop Cinemas, as part of my University Fullstack Development course.
+
+Live site demo can be viewed [here](https://loop-cinemas.up.railway.app)
 
 ## Design
 
